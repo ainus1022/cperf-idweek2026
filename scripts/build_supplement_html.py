@@ -122,21 +122,19 @@ def sec_corrections():
     <thead><tr><th>Item</th><th>Abstract</th><th>Re-analysis</th></tr></thead>
     <tbody>{body}{wd}</tbody>
   </table>
-  <p class="fine">The three withdrawn genes no longer differ significantly. Percentages
-  here are those of the frozen re-analysis that the poster reports, so that poster and
-  handout carry the same denominators (bloodstream 25, human non-bloodstream 29).
-  {g("nagL")} and {g("pfoA")} are virulence genes and carry a <i>q</i> from the
-  Benjamini&ndash;Hochberg correction across the 18 genes tested; {g("tetA(P)")} is a
-  resistance gene and was not part of that family, so its Fisher <i>p</i> is given
-  uncorrected.
-  &dagger; Denominator used in the abstract's calculations; the number itself was not
-  printed. The abstract's {g("tetA(P)")} figure of 8% was a transcription of an odds
-  ratio of 0.086. <strong>Its direction is not reversed:</strong> carriage is lower in
-  the bloodstream group in both the abstract and the re-analysis, but the effect
-  collapses from an odds ratio of 0.086 to {TETA_P['or']:.2f} and is not significant.</p>
+  <p class="fine">Denominators are those of the frozen re-analysis, as on the poster:
+  bloodstream 25, human non-bloodstream 29.
+  {g("nagL")} and {g("pfoA")} carry a Benjamini&ndash;Hochberg <i>q</i> across the 18
+  virulence genes tested; {g("tetA(P)")} is a resistance gene outside that family, so
+  its Fisher <i>p</i> is uncorrected.
+  &dagger; Used in the abstract's calculations but not printed there.</p>
+  <p class="fine">The abstract's {g("tetA(P)")} figure of 8% was a transcribed odds
+  ratio of 0.086. <strong>Its direction is not reversed</strong> &mdash; carriage is
+  lower in the bloodstream group in both &mdash; but the effect collapses to an odds
+  ratio of {TETA_P['or']:.2f} and is not significant.</p>
   <p class="fine">IDWeek permits errors in an accepted abstract to be indicated during
-  the presentation (Abstract Submission Information, Abstract Changes / Edits). The
-  abstract itself is frozen as submitted; this table is the correction.</p>
+  the presentation (Abstract Changes / Edits). The abstract is frozen as submitted;
+  this table is the correction.</p>
 </section>"""
 
 
@@ -170,7 +168,7 @@ def sec_robustness():
         for t, d in checks)
     return f"""
 <section id="robustness">
-  <h2>2 &nbsp;Robustness of the re-analysis</h2>
+  <h2>2 &nbsp;Robustness checks</h2>
   <ul class="checks">{items}</ul>
 </section>"""
 
@@ -182,7 +180,7 @@ def sec_core_thresholds():
     td = "".join(f'<td{" class=hi" if a=="99%" else ""}>{b}</td>' for a, b in vals)
     return f"""
 <section id="thresholds">
-  <h2>3 &nbsp;Core genes at every threshold</h2>
+  <h2>3 &nbsp;Core-gene thresholds</h2>
   <p>The core-genome definition is not a knife edge. Relaxing the threshold from 100%
   to 80% of genomes moves the count from 822 to 2,057, and the 99% value used
   throughout the poster sits in the middle of that range.</p>
@@ -206,7 +204,7 @@ def sec_phylogeny():
 
     return f"""
 <section id="phylogeny">
-  <h2>4 &nbsp;Phylogeny: node support and alignment</h2>
+  <h2>4 &nbsp;Node support and core alignment</h2>
   <p>The poster prints Figure 1 as a cladogram without support values, so they are
   given here. The tree has {s['tips']} tips and
   {s['internal_nodes_with_support']} internal nodes carrying support.</p>
@@ -228,7 +226,7 @@ def sec_phylogeny():
   poorly supported nodes lie within the densely sampled, shallow parts of phylogroup
   III, which is consistent with the reticulation that Figure 2 shows directly.</p>
 
-  <h3>Where the 1,066,463 bp go</h3>
+  <h3>Alignment accounting</h3>
   <p>The poster states that the tree was built from 56,596 SNP sites in a
   1,066,463&nbsp;bp core alignment. IQ-TREE reports a total of
   {n('modelled_total')} sites, because constant sites were supplied as counts of
@@ -263,7 +261,7 @@ def sec_vf_table():
                  f'<td>{r["human_pct"]}% <span class="note">{r["human_pos"]}/{r["human_n"]}</span></td>'
                  f'<td>{r["odds_ratio"]}</td><td>{r["p"]}</td><td>{r["q"]}</td></tr>')
     return f"""
-  <h3>5.1 &nbsp;Virulence genes, bloodstream vs human non-bloodstream</h3>
+  <h3>5.1 &nbsp;Virulence genes, bloodstream vs non-bloodstream</h3>
   <p>All {len(rows)} genes tested, not only the seven that reached significance.
   Genes detected in neither group are not listed and were not tested.</p>
   <table class="data">
@@ -287,7 +285,7 @@ def sec_toxin_table():
                  f'<td class="note">{r["source_of_call"]}</td>{cells}</tr>')
     th = "".join(f'<th>{HEAD[k]}</th>' for k in ORDER)
     return f"""
-  <h3>5.2 &nbsp;Animal enteric-disease toxin genes</h3>
+  <h3>5.2 &nbsp;Enteric toxin genes</h3>
   <p>{g("netE")}, {g("netF")}, {g("tpeL")} and {g("netB")} were found in no bloodstream
   genome and no human non-bloodstream genome, but readily in animal-source genomes.
   Because these genes are not uniformly represented across annotation sources, each row
@@ -380,7 +378,7 @@ def sec_isolation():
     total = sum(int(r["n"]) for r in rows)
     return f"""
 <section id="isolation">
-  <h2>6 &nbsp;Isolation source of the comparison genomes, as recorded</h2>
+  <h2>6 &nbsp;Isolation sources, as recorded</h2>
   <p>Every source string exactly as recorded by the reference studies, for all
   {total} comparison genomes. The poster collapses these into five groups; the
   original strings are given here because several carry anatomical or clinical detail
@@ -510,9 +508,24 @@ EXTRA_CSS = """
   p.fine { color: var(--ink-2); font-size: .88em; max-width: var(--measure); }
   ul.checks { list-style: none; padding: 0; display: flex; flex-direction: column;
               gap: var(--s2); }
-  ul.checks li { max-width: var(--measure); padding-left: 1.7em; position: relative; }
+  /* 🔴 流用元の CSS に `.checks li { display: grid; grid-template-columns: 1.4rem 1fr }`
+     がある。こちらは絶対配置のチェック印なので、grid が生きていると本文が 1.4rem の
+     トラックに押し込まれて重なる（2026-10-10 奥川先生が Android で発見）。
+     **display と grid-template-columns を明示的に打ち消す。**消し忘れると再発する。 */
+  ul.checks li { display: block; grid-template-columns: none;
+                 max-width: var(--measure); padding-left: 1.7em; position: relative; }
   span.tick { position: absolute; left: 0; color: var(--good); font-weight: 700; }
   ol.refs { font-size: .9em; color: var(--ink-2); padding-left: 1.4em; }
+  /* 🔴 スマホ。流用元に `table { min-width: 30rem }`（=480px）があるので、
+     そのままだと本文ごと横スクロールする（412px 幅で scrollWidth 681）。
+     表だけを個別にスクロールさせ、本文は画面幅に収める。 */
+  @media (max-width: 34rem) {
+    body { padding: var(--s4) var(--s3) var(--s5); }
+    table.data { display: block; min-width: 0; overflow-x: auto;
+                 -webkit-overflow-scrolling: touch; font-size: .85em; }
+    table.data th, table.data td { padding: .3em .4em; }
+    .srcgrid { grid-template-columns: 1fr; }
+  }
   h2 { font-size: 1.28em; margin: 0 0 var(--s2); letter-spacing: -.01em; }
   h3 { font-size: 1.04em; margin: var(--s3) 0 var(--s2); color: var(--ink); }
   section { display: flex; flex-direction: column; gap: var(--s2); }
@@ -531,7 +544,7 @@ EXTRA_CSS = """
 def build():
     parts = [
         sec_corrections(), sec_robustness(), sec_core_thresholds(), sec_phylogeny(),
-        '<section id="genes"><h2>5 &nbsp;Full gene tables</h2>'
+        '<section id="genes"><h2>5 &nbsp;Gene tables</h2>'
         + sec_vf_table() + sec_toxin_table() + sec_amr_table() + sec_tox_by_source()
         + "</section>",
         sec_isolation(), sec_analysis_set(), sec_software(), sec_refs(),
