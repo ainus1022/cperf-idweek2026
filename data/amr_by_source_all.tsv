@@ -1,0 +1,16 @@
+gene	Blood_n	Blood_pct	Human_n	Human_pct	Animal_n	Animal_pct	Food_n	Food_pct	Environment_n	Environment_pct	on_poster
+tetA(P)	14	56	19	66	92	65	7	41	5	83	yes
+tetB(P)	12	48	8	28	52	37	0	0	5	83	yes
+ant(6)-Ib	2	8	0	0	7	5	0	0	0	0	yes
+erm(Q)	3	12	1	3	2	1	0	0	3	50	yes
+tet(44)	2	8	0	0	7	5	0	0	0	0	yes
+lnu(P)	2	8	1	3	5	4	0	0	0	0	yes
+aph(2'')-Ii	2	8	0	0	5	4	0	0	0	0	yes
+lnu(D)	0	0	0	0	2	1	0	0	0	0	no
+mef(A)	0	0	0	0	2	1	0	0	0	0	no
+aadE	0	0	0	0	1	1	0	0	0	0	no
+erm(A)	0	0	0	0	1	1	0	0	0	0	no
+erm(B)	0	0	0	0	1	1	0	0	0	0	no
+fexA	0	0	0	0	1	1	0	0	0	0	yes
+optrA	0	0	0	0	1	1	0	0	0	0	yes
+tet(M)	0	0	0	0	1	1	0	0	0	0	yes

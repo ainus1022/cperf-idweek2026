@@ -1,0 +1,9 @@
+gene	source_of_call	Blood_n	Blood_pct	Human_n	Human_pct	Animal_n	Animal_pct	Food_n	Food_pct	Environment_n	Environment_pct
+netE	Bakta	0	0	0	0	27	19	0	0	0	0
+netF	Bakta	0	0	0	0	28	20	0	0	0	0
+tpeL	Bakta	0	0	0	0	17	12	0	0	0	0
+netB	ABRicate/VFDB	0	0	0	0	51	36	0	0	0	0
+netB	Bakta	0	0	0	0	23	16	0	0	0	0
+cpe	Bakta	0	0	11	38	36	26	16	94	0	0
+cpe	ABRicate/VFDB	1	4	11	38	37	26	16	94	0	0
+cpe	toxinotype F (reported)	1	4	8	28	34	24	16	94	0	0

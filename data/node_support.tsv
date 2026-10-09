@@ -1,0 +1,13 @@
+metric	value
+tips	210
+internal_nodes_with_support	205
+sh_alrt_median	100.0
+sh_alrt_mean	84.5
+sh_alrt_min	0
+ufboot_median	100.0
+ufboot_mean	90.7
+ufboot_min	6
+sh_alrt_ge80	168
+ufboot_ge95	161
+sh_alrt_ge80_and_ufboot_ge95	154
+well_supported_pct	75

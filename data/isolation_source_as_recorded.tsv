@@ -1,0 +1,46 @@
+group	source_as_recorded	n
+Human	Human (stool)	22
+Human	Human	4
+Human	Human (gut)	2
+Human	Human (vagina)	1
+Animal	Bird	44
+Animal	Dog	16
+Animal	Horse	16
+Animal	Sheep	14
+Animal	Pig	13
+Animal	Cattle	5
+Animal	Rabbit	5
+Animal	Bird (chicken intestine)	3
+Animal	Bird (caecum)	2
+Animal	Camel	2
+Animal	Deer	2
+Animal	Llama (ileum)	2
+Animal	Llama (jejunum)	2
+Animal	Mink	2
+Animal	Bird (chicken)	1
+Animal	Bird (pigeon)	1
+Animal	Bird (turkey intestine)	1
+Animal	Cattle (calf intestinal content)	1
+Animal	Mouse (gut)	1
+Animal	Mule	1
+Animal	Mummified animal (Intestine of a frozen mummy - Bison priscus)	1
+Animal	Mummified animal (remains of an ancient "Tumat" puppy - Canis lupus familiaris)	1
+Animal	Peacock	1
+Animal	Pig (feces)	1
+Animal	Pig (gut)	1
+Animal	Pig (intestine)	1
+Animal	Sheep (lamb intestine)	1
+Food	Restaurant	7
+Food	Food (salted beef)	2
+Food	Food (beef)	1
+Food	Food (braised heart)	1
+Food	Food (meat rissole)	1
+Food	Food (minced beef)	1
+Food	Food (rissoles)	1
+Food	Food (roast meat)	1
+Food	Food (steamed Lamb)	1
+Food	Food (stewed steak)	1
+Environment	Environment (river water)	3
+Environment	Environment (Aquarium water)	1
+Environment	Environment (landfill leachate sludge)	1
+Environment	Environment (soil)	1

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P-202 supplementary handout &middot; IDWeek 2026</title>
+<style>
+  /* ---- tokens: complete light palette on bare :root ------------------- */
+  :root {
+    --ground:      #FFFFFF;
+    --surface:     #F3F5F7;   /* slate-biased neutral, matches the poster panel */
+    --surface-2:   #E9EDF1;
+    --ink:         #16202B;
+    --ink-2:       #55616D;
+    --ink-3:       #8A939C;
+    --rule:        #D6DBE0;
+    --rule-soft:   #E7EAEE;
+    --accent:      #AC1825;   /* bloodstream red — scripts/palette.py */
+    --accent-soft: #F6E7E8;
+    --amber-ink:   #7A4E07;   /* correction amber — scripts/palette.py */
+    --amber-bg:    #FBF2E4;
+    --amber-rule:  #D9B877;
+    --good:        #1E7A46;
+
+    --measure: 68ch;
+    --s1: .35rem; --s2: .7rem; --s3: 1.1rem; --s4: 1.8rem; --s5: 2.9rem; --s6: 4.4rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:      #121920;
+      --surface:     #1A232C;
+      --surface-2:   #232E39;
+      --ink:         #E3E9EE;
+      --ink-2:       #A3AEB9;
+      --ink-3:       #78838E;
+      --rule:        #2E3A46;
+      --rule-soft:   #232E39;
+      --accent:      #F2707C;
+      --accent-soft: #33191D;
+      --amber-ink:   #E7C173;
+      --amber-bg:    #26200F;
+      --amber-rule:  #6A5526;
+      --good:        #5FC08C;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:      #121920;
+    --surface:     #1A232C;
+    --surface-2:   #232E39;
+    --ink:         #E3E9EE;
+    --ink-2:       #A3AEB9;
+    --ink-3:       #78838E;
+    --rule:        #2E3A46;
+    --rule-soft:   #232E39;
+    --accent:      #F2707C;
+    --accent-soft: #33191D;
+    --amber-ink:   #E7C173;
+    --amber-bg:    #26200F;
+    --amber-rule:  #6A5526;
+    --good:        #5FC08C;
+  }
+
+  /* ---- base ----------------------------------------------------------- */
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 54rem;
+    margin: 0 auto;
+    padding: var(--s5) var(--s4) var(--s6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s5);
+  }
+  p { max-width: var(--measure); margin: 0; }
+  a { color: var(--accent); text-underline-offset: .18em; }
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px;
+  }
+  em.g { font-style: italic; }
+  .mono, code {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: .88em;
+  }
+
+  /* ---- masthead ------------------------------------------------------- */
+  .head { display: flex; flex-direction: column; gap: var(--s3); }
+  .badge-row { display: flex; align-items: baseline; gap: var(--s2); flex-wrap: wrap; }
+  .badge {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-weight: 700; font-size: .8rem; letter-spacing: .1em;
+    color: var(--ground); background: var(--ink);
+    padding: .3em .7em; border-radius: 3px;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: .78rem; font-weight: 600; letter-spacing: .13em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  h1 {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: clamp(1.7rem, 4vw, 2.45rem); font-weight: 600; line-height: 1.2;
+    letter-spacing: -.015em; margin: 0; text-wrap: balance;
+  }
+  h1 em { font-style: italic; font-family: "IBM Plex Serif", Georgia, serif; }
+  .byline { color: var(--ink-2); font-size: .95rem; max-width: var(--measure); }
+  .lede {
+    border-left: 3px solid var(--accent);
+    padding-left: var(--s3);
+    color: var(--ink-2);
+    max-width: var(--measure);
+  }
+
+  /* ---- sections ------------------------------------------------------- */
+  section { display: flex; flex-direction: column; gap: var(--s3); }
+  h2 {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 1.32rem; font-weight: 600; letter-spacing: -.01em;
+    margin: 0; padding-bottom: var(--s2);
+    border-bottom: 1px solid var(--rule);
+    text-wrap: balance;
+  }
+  h3 {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: .82rem; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-3); margin: 0;
+  }
+
+  /* ---- tables --------------------------------------------------------- */
+  .scroll { overflow-x: auto; }
+  table {
+    border-collapse: collapse; width: 100%; min-width: 30rem;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: .93rem;
+    font-variant-numeric: tabular-nums;
+  }
+  caption {
+    caption-side: bottom; text-align: left; padding-top: var(--s2);
+    font-family: "IBM Plex Serif", Georgia, serif;
+    font-size: .87rem; color: var(--ink-3); line-height: 1.5;
+  }
+  th, td { padding: .5em .8em; text-align: left; vertical-align: top; }
+  thead th {
+    font-size: .72rem; font-weight: 600; letter-spacing: .09em;
+    text-transform: uppercase; color: var(--ink-3);
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+  tbody tr + tr td { border-top: 1px solid var(--rule-soft); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr.rule-top td { border-top: 1px solid var(--rule); }
+  .was { color: var(--ink-3); }
+  .now { font-weight: 600; }
+  .wd  { color: var(--amber-ink); font-weight: 600; }
+
+  /* ---- corrections block --------------------------------------------- */
+  .corr {
+    background: var(--amber-bg);
+    border: 1px solid var(--amber-rule);
+    border-radius: 4px;
+    padding: var(--s4);
+    display: flex; flex-direction: column; gap: var(--s3);
+  }
+  .corr h2 { color: var(--amber-ink); border-bottom-color: var(--amber-rule); }
+  .corr p { color: var(--amber-ink); }
+  .corr thead th { color: var(--amber-ink); border-bottom-color: var(--amber-rule); }
+  .corr tbody tr + tr td { border-top-color: var(--amber-rule); }
+  .corr tbody tr.rule-top td { border-top: 1px solid var(--amber-rule); }
+  .corr .was { color: color-mix(in srgb, var(--amber-ink) 60%, transparent); }
+  .corr td { color: var(--amber-ink); }
+
+  /* ---- checklist ------------------------------------------------------ */
+  .checks { display: flex; flex-direction: column; gap: var(--s3); margin: 0; padding: 0; list-style: none; }
+  .checks li { display: grid; grid-template-columns: 1.4rem 1fr; gap: var(--s2); max-width: var(--measure); }
+  .checks .tick { color: var(--good); font-weight: 700; font-family: "IBM Plex Sans", sans-serif; }
+  .checks b { font-family: "IBM Plex Sans", system-ui, sans-serif; font-weight: 600; }
+
+  /* ---- source grid ---------------------------------------------------- */
+  .srcgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--s3); }
+  .card {
+    background: var(--surface); border: 1px solid var(--rule-soft);
+    border-radius: 4px; padding: var(--s3);
+    display: flex; flex-direction: column; gap: var(--s2);
+  }
+  .card .hd { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s2); }
+  .card .nm { font-family: "IBM Plex Sans", sans-serif; font-weight: 600; font-size: .95rem; }
+  .card .n  { font-family: "IBM Plex Mono", monospace; font-size: 1.05rem; font-weight: 600; }
+  .card dl { margin: 0; display: grid; grid-template-columns: 1fr auto; gap: .18em var(--s2); font-size: .9rem; }
+  .card dt { color: var(--ink-2); font-family: "IBM Plex Sans", sans-serif; }
+  .card dd { margin: 0; font-family: "IBM Plex Mono", monospace; color: var(--ink); }
+  .swatch { width: .62rem; height: .62rem; border-radius: 2px; display: inline-block; margin-right: .45em; }
+
+  details {
+    border: 1px solid var(--rule); border-radius: 4px;
+    padding: var(--s2) var(--s3); background: var(--surface);
+  }
+  summary {
+    cursor: pointer; font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 600; font-size: .93rem;
+  }
+  details[open] summary { margin-bottom: var(--s3); }
+
+  footer {
+    border-top: 1px solid var(--rule); padding-top: var(--s3);
+    color: var(--ink-3); font-size: .86rem;
+    display: flex; flex-direction: column; gap: var(--s2);
+  }
+  footer b { color: var(--ink-2); font-family: "IBM Plex Sans", sans-serif; font-weight: 600; }
+
+  /* 1009 版で足した分 */
+  table.data { width: 100%; border-collapse: collapse; font-size: .92em;
+               font-variant-numeric: tabular-nums; }
+  table.data th, table.data td { text-align: left; padding: .34em .6em;
+               border-bottom: 1px solid var(--rule-soft); vertical-align: baseline; }
+  table.data thead th { border-bottom: 1px solid var(--rule); color: var(--ink-2);
+               font-weight: 600; font-size: .88em; letter-spacing: .02em; }
+  table.data td + td, table.data th + th { text-align: right; }
+  table.data.src td + td, table.data.src th + th { text-align: left; }
+  table.data.src td + td + td, table.data.src th + th + th { text-align: right; }
+  table.data tr.sig { background: var(--accent-soft); }
+  table.data tr.wd  { background: var(--amber-bg); color: var(--amber-ink); }
+  table.data tr.tot td, table.data tr.sub td { border-top: 1px solid var(--rule);
+               font-weight: 600; }
+  table.data tr.neg td { color: var(--ink-2); }
+  table.data td.hi { font-weight: 700; color: var(--accent); }
+  span.note { color: var(--ink-3); font-size: .86em; }
+  p.fine { color: var(--ink-2); font-size: .88em; max-width: var(--measure); }
+  ul.checks { list-style: none; padding: 0; display: flex; flex-direction: column;
+              gap: var(--s2); }
+  ul.checks li { max-width: var(--measure); padding-left: 1.7em; position: relative; }
+  span.tick { position: absolute; left: 0; color: var(--good); font-weight: 700; }
+  ol.refs { font-size: .9em; color: var(--ink-2); padding-left: 1.4em; }
+  h2 { font-size: 1.28em; margin: 0 0 var(--s2); letter-spacing: -.01em; }
+  h3 { font-size: 1.04em; margin: var(--s3) 0 var(--s2); color: var(--ink); }
+  section { display: flex; flex-direction: column; gap: var(--s2); }
+  .masthead { border-bottom: 2px solid var(--ink); padding-bottom: var(--s3); }
+  .pnum { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 700;
+          color: var(--accent); letter-spacing: .06em; }
+  .authors { font-size: .92em; color: var(--ink-2); max-width: none; }
+  @media print {
+    body { font-size: 10.5pt; }
+    section { break-inside: avoid; }
+    table.data { font-size: 9pt; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead">
+  <p class="pnum">P-202 &nbsp;&middot;&nbsp; IDWeek 2026 &nbsp;&middot;&nbsp; supplementary handout</p>
+  <h1>Genomic Characterization of <i>Clostridium perfringens</i> Bacteremia Isolates
+  at a Tertiary Care Center in Japan</h1>
+  <p class="authors">Aiko Okazaki<sup>1</sup>, Shu Okugawa<sup>2</sup>,
+  Satoshi Kitaura<sup>2</sup>, Mahoko Ikeda<sup>3</sup>, Shintaro Yanagimoto<sup>4</sup>,
+  Yusuke Nomura<sup>2</sup>, Saho Koyano<sup>2</sup>, Yoshimi Higurashi<sup>2</sup>,
+  Sohei Harada<sup>5</sup>, Ryoichi Saito<sup>6</sup>, Takeya Tsutsumi<sup>4</sup></p>
+  <p>This handout carries the material that did not fit on the poster: the itemised
+  corrections to the published abstract, the node support values and gene tables in
+  full, the checks that support the re-analysis, and the isolation source of every
+  comparison genome as originally recorded.</p>
+</header>
+
+<section id="corrections">
+  <h2>1 &nbsp;Corrections to the published abstract</h2>
+  <p>A subset of the bloodstream isolates had been analysed with an incorrect input
+  file, and two datasets had been mixed. All 218 genomes were re-analysed in a single
+  uniform pipeline. <strong>The direction of every principal finding is
+  unchanged.</strong></p>
+  <table class="data">
+    <thead><tr><th>Item</th><th>Abstract</th><th>Re-analysis</th></tr></thead>
+    <tbody><tr><td>Public genomes</td><td>192</td><td>194</td></tr><tr><td>Human, non-bloodstream, <i>n</i></td><td>31 &dagger;</td><td>29</td></tr><tr><td>Bloodstream, <i>n</i></td><td>24 / 25</td><td>25</td></tr><tr><td>Core genes</td><td>538</td><td>1,215</td></tr><tr><td>Total genes</td><td>30,454</td><td>23,512</td></tr><tr><td><em class="g">nagK</em></td><td>100%</td><td>92%</td></tr><tr><td><em class="g">nagI</em></td><td>96%</td><td>100%</td></tr><tr><td><em class="g">nanJ</em></td><td>96%</td><td>100%</td></tr><tr><td>Statistics</td><td><i>p</i>, uncorrected</td><td><i>q</i>, BH&ndash;FDR</td></tr><tr class="wd"><td><em class="g">nagL</em></td><td>96% vs 45%</td><td>withdrawn &mdash; 56% (14/25) vs 45% (13/29)<span class="note"> <i>q</i> = 0.958</span></td></tr><tr class="wd"><td><em class="g">pfoA</em></td><td>92% vs 52%</td><td>withdrawn &mdash; 80% (20/25) vs 52% (15/29)<span class="note"> <i>q</i> = 0.102</span></td></tr><tr class="wd"><td><em class="g">tetA(P)</em></td><td>8% vs 61%</td><td>withdrawn &mdash; 56% (14/25) vs 66% (19/29)<span class="note"> OR 0.68, <i>p</i> = 0.58</span></td></tr></tbody>
+  </table>
+  <p class="fine">The three withdrawn genes no longer differ significantly. Percentages
+  here are those of the frozen re-analysis that the poster reports, so that poster and
+  handout carry the same denominators (bloodstream 25, human non-bloodstream 29).
+  <em class="g">nagL</em> and <em class="g">pfoA</em> are virulence genes and carry a <i>q</i> from the
+  Benjamini&ndash;Hochberg correction across the 18 genes tested; <em class="g">tetA(P)</em> is a
+  resistance gene and was not part of that family, so its Fisher <i>p</i> is given
+  uncorrected.
+  &dagger; Denominator used in the abstract's calculations; the number itself was not
+  printed. The abstract's <em class="g">tetA(P)</em> figure of 8% was a transcription of an odds
+  ratio of 0.086. <strong>Its direction is not reversed:</strong> carriage is lower in
+  the bloodstream group in both the abstract and the re-analysis, but the effect
+  collapses from an odds ratio of 0.086 to 0.68 and is not significant.</p>
+  <p class="fine">IDWeek permits errors in an accepted abstract to be indicated during
+  the presentation (Abstract Submission Information, Abstract Changes / Edits). The
+  abstract itself is frozen as submitted; this table is the correction.</p>
+</section>
+<section id="robustness">
+  <h2>2 &nbsp;Robustness of the re-analysis</h2>
+  <ul class="checks"><li><span class="tick">&#10003;</span><strong>The bloodstream group can be defined either way.</strong> Whether the group is the 25 genomes (24 from this study plus one public bloodstream genome) or the 24 isolates of this study alone, the same seven genes reach <i>q</i> &lt; 0.05 with identical carriage proportions. Only the <i>q</i> values shift.</li><li><span class="tick">&#10003;</span><strong>Assembly quality is not the driver.</strong> Re-assembling the 24 isolates moved the contig-count median from 278 to 42 and changed 1 of 480 gene calls.</li><li><span class="tick">&#10003;</span><strong>Annotation confounding was removed.</strong> The earlier input mixed two annotators along the bloodstream / comparison boundary. All 210 genomes in the pan-genome and phylogeny are now annotated with a single version of Prokka.</li><li><span class="tick">&#10003;</span><strong>The quality gate does not touch the comparison.</strong> The 8 genomes excluded by CheckM2 are all animal- or food-source, so the bloodstream and human non-bloodstream groups are intact.</li><li><span class="tick">&#10003;</span><strong>Redundancy was found by sequence, not by name.</strong> MD5 of sequence content caught duplicate genomes that name and accession matching had missed.</li><li><span class="tick">&#10003;</span><strong>The core-gene count agrees with an external standard.</strong> An independently constructed cgMLST scheme for this species defines 1,431 core genes, bracketed by our 99% (1,215) and 95% (1,563) values. The abstract's 538 lies far outside every published figure.</li></ul>
+</section>
+<section id="thresholds">
+  <h2>3 &nbsp;Core genes at every threshold</h2>
+  <p>The core-genome definition is not a knife edge. Relaxing the threshold from 100%
+  to 80% of genomes moves the count from 822 to 2,057, and the 99% value used
+  throughout the poster sits in the middle of that range.</p>
+  <table class="data num">
+    <thead><tr><th>Present in &ge;</th><th>100%</th><th>99%</th><th>98%</th><th>95%</th><th>90%</th><th>80%</th></tr></thead>
+    <tbody><tr><td>Core genes recovered</td><td>822</td><td class=hi>1,215</td><td>1,376</td><td>1,563</td><td>1,685</td><td>2,057</td></tr></tbody>
+  </table>
+  <p class="fine">Computed from the Roary <span class="mono">gene_presence_absence.Rtab</span>
+  for the 210-genome set (23,512 genes total). The 99% column is the value reported on
+  the poster.</p>
+</section>
+<section id="phylogeny">
+  <h2>4 &nbsp;Phylogeny: node support and alignment</h2>
+  <p>The poster prints Figure 1 as a cladogram without support values, so they are
+  given here. The tree has 210 tips and
+  205 internal nodes carrying support.</p>
+  <table class="data">
+    <thead><tr><th>Support</th><th>Median</th><th>Mean</th><th>Minimum</th><th>Nodes at or above threshold</th></tr></thead>
+    <tbody>
+      <tr><td>SH-aLRT</td><td>100.0</td><td>84.5</td>
+          <td>0</td>
+          <td>168 / 205 at &ge; 80</td></tr>
+      <tr><td>UFBoot</td><td>100.0</td><td>90.7</td>
+          <td>6</td>
+          <td>161 / 205 at &ge; 95</td></tr>
+    </tbody>
+  </table>
+  <p><strong>154 of
+  205 internal nodes (75%)
+  meet both conventional thresholds</strong> (SH-aLRT &ge; 80 <em>and</em> UFBoot
+  &ge; 95). Branch support is therefore strong for three quarters of the tree; the
+  poorly supported nodes lie within the densely sampled, shallow parts of phylogroup
+  III, which is consistent with the reticulation that Figure 2 shows directly.</p>
+
+  <h3>Where the 1,066,463 bp go</h3>
+  <p>The poster states that the tree was built from 56,596 SNP sites in a
+  1,066,463&nbsp;bp core alignment. IQ-TREE reports a total of
+  1,020,921 sites, because constant sites were supplied as counts of
+  unambiguous A/C/G/T only. The difference is accounted for here so the two figures
+  can be reconciled.</p>
+  <table class="data">
+    <thead><tr><th>Component</th><th>Sites</th><th></th></tr></thead>
+    <tbody>
+      <tr><td>Roary core gene alignment</td><td>1,066,463</td>
+          <td class="note">210 genomes</td></tr>
+      <tr><td>SNP sites passed to IQ-TREE</td><td>56,596</td>
+          <td class="note">snp-sites output</td></tr>
+      <tr><td>Constant sites supplied</td><td>964,325</td>
+          <td class="note">as <span class="mono">-fconst</span>, so branch lengths are not inflated</td></tr>
+      <tr><td>Total modelled</td><td>1,020,921</td>
+          <td class="note">as reported by IQ-TREE</td></tr>
+      <tr><td>Gap or ambiguous columns</td><td>45,542</td>
+          <td class="note">neither SNP nor unambiguous constant</td></tr>
+    </tbody>
+  </table>
+</section><section id="genes"><h2>5 &nbsp;Full gene tables</h2>
+  <h3>5.1 &nbsp;Virulence genes, bloodstream vs human non-bloodstream</h3>
+  <p>All 18 genes tested, not only the seven that reached significance.
+  Genes detected in neither group are not listed and were not tested.</p>
+  <table class="data">
+    <thead><tr><th>Gene</th><th>Bloodstream (25)</th><th>Human non-blood (29)</th>
+      <th>OR</th><th><i>p</i></th><th><i>q</i></th></tr></thead>
+    <tbody><tr class="sig"><td><em class="g">nagI</em></td><td>100% <span class="note">25/25</span></td><td>59% <span class="note">17/29</span></td><td>36.43</td><td>0.000166</td><td>0.00245</td></tr><tr class="sig"><td><em class="g">nagH</em></td><td>100% <span class="note">25/25</span></td><td>62% <span class="note">18/29</span></td><td>31.70</td><td>0.000408</td><td>0.00245</td></tr><tr class="sig"><td><em class="g">nanJ</em></td><td>100% <span class="note">25/25</span></td><td>62% <span class="note">18/29</span></td><td>31.70</td><td>0.000408</td><td>0.00245</td></tr><tr class="sig"><td><em class="g">nagJ</em></td><td>100% <span class="note">25/25</span></td><td>66% <span class="note">19/29</span></td><td>27.46</td><td>0.000974</td><td>0.00438</td></tr><tr class="sig"><td><em class="g">nanI</em></td><td>100% <span class="note">25/25</span></td><td>69% <span class="note">20/29</span></td><td>23.63</td><td>0.00227</td><td>0.00816</td></tr><tr class="sig"><td><em class="g">cpe</em></td><td>4% <span class="note">1/25</span></td><td>38% <span class="note">11/29</span></td><td>0.10</td><td>0.00306</td><td>0.00919</td></tr><tr class="sig"><td><em class="g">nagK</em></td><td>92% <span class="note">23/25</span></td><td>59% <span class="note">17/29</span></td><td>6.71</td><td>0.00604</td><td>0.0155</td></tr><tr class=""><td><em class="g">pfoA</em></td><td>80% <span class="note">20/25</span></td><td>52% <span class="note">15/29</span></td><td>3.49</td><td>0.0455</td><td>0.102</td></tr><tr class=""><td><em class="g">iap</em></td><td>0% <span class="note">0/25</span></td><td>7% <span class="note">2/29</span></td><td>0.22</td><td>0.493</td><td>0.888</td></tr><tr class=""><td><em class="g">ibp</em></td><td>0% <span class="note">0/25</span></td><td>7% <span class="note">2/29</span></td><td>0.22</td><td>0.493</td><td>0.888</td></tr><tr class=""><td><em class="g">nagL</em></td><td>56% <span class="note">14/25</span></td><td>45% <span class="note">13/29</span></td><td>1.54</td><td>0.586</td><td>0.958</td></tr><tr class=""><td><em class="g">cloSI</em></td><td>100% <span class="note">25/25</span></td><td>100% <span class="note">29/29</span></td><td>0.86</td><td>1</td><td>1</td></tr><tr class=""><td><em class="g">colA</em></td><td>96% <span class="note">24/25</span></td><td>97% <span class="note">28/29</span></td><td>0.86</td><td>1</td><td>1</td></tr><tr class=""><td><em class="g">cpb</em></td><td>0% <span class="note">0/25</span></td><td>3% <span class="note">1/29</span></td><td>0.37</td><td>1</td><td>1</td></tr><tr class=""><td><em class="g">cpb2</em></td><td>0% <span class="note">0/25</span></td><td>3% <span class="note">1/29</span></td><td>0.37</td><td>1</td><td>1</td></tr><tr class=""><td><em class="g">ext</em></td><td>0% <span class="note">0/25</span></td><td>3% <span class="note">1/29</span></td><td>0.37</td><td>1</td><td>1</td></tr><tr class=""><td><em class="g">nanH</em></td><td>100% <span class="note">25/25</span></td><td>100% <span class="note">29/29</span></td><td>0.86</td><td>1</td><td>1</td></tr><tr class=""><td><em class="g">plc</em></td><td>100% <span class="note">25/25</span></td><td>100% <span class="note">29/29</span></td><td>0.86</td><td>1</td><td>1</td></tr></tbody>
+  </table>
+  <p class="fine">Fisher exact test, two-sided; Benjamini&ndash;Hochberg across all
+  18 genes. Odds ratios use a 0.5 continuity correction, so a zero cell still
+  gives a finite value. Shaded rows are the seven with <i>q</i> &lt; 0.05 reported on
+  the poster.</p>
+  <h3>5.2 &nbsp;Animal enteric-disease toxin genes</h3>
+  <p><em class="g">netE</em>, <em class="g">netF</em>, <em class="g">tpeL</em> and <em class="g">netB</em> were found in no bloodstream
+  genome and no human non-bloodstream genome, but readily in animal-source genomes.
+  Because these genes are not uniformly represented across annotation sources, each row
+  states which call it comes from, and both available calls are given where they
+  differ.</p>
+  <table class="data">
+    <thead><tr><th>Gene</th><th>Call from</th><th>Blood</th><th>Human</th><th>Animal</th><th>Food</th><th>Env.</th></tr></thead>
+    <tbody><tr><td><em class="g">netE</em></td><td class="note">Bakta</td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>19% <span class="note">27</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">netF</em></td><td class="note">Bakta</td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>20% <span class="note">28</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">tpeL</em></td><td class="note">Bakta</td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>12% <span class="note">17</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">netB</em></td><td class="note">ABRicate/VFDB</td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>36% <span class="note">51</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">netB</em></td><td class="note">Bakta</td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>16% <span class="note">23</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">cpe</em></td><td class="note">Bakta</td><td>0% <span class="note">0</span></td><td>38% <span class="note">11</span></td><td>26% <span class="note">36</span></td><td>94% <span class="note">16</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">cpe</em></td><td class="note">ABRicate/VFDB</td><td>4% <span class="note">1</span></td><td>38% <span class="note">11</span></td><td>26% <span class="note">37</span></td><td>94% <span class="note">16</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">cpe</em></td><td class="note">toxinotype F (reported)</td><td>4% <span class="note">1</span></td><td>28% <span class="note">8</span></td><td>24% <span class="note">34</span></td><td>94% <span class="note">16</span></td><td>0% <span class="note">0</span></td></tr></tbody>
+  </table>
+  <p class="fine"><em class="g">netE</em>, <em class="g">netF</em> and <em class="g">tpeL</em> are not represented in VFDB
+  and were assessed from Bakta annotation; <em class="g">netB</em> is reported on the poster from
+  ABRicate/VFDB. <strong>The two sources disagree for <em class="g">netB</em></strong>: 51 animal
+  genomes by VFDB against 23 by Bakta. For the four enteric-disease toxin genes the
+  absence from the bloodstream and human groups is nonetheless unanimous across both
+  sources &mdash; every cell is zero either way &mdash; so the poster's conclusion does
+  not turn on this choice. <em class="g">cpe</em> is listed for context and is the one gene here
+  where the sources differ inside the bloodstream group (VFDB 1 of 25, Bakta 0 of 25;
+  the poster reports the VFDB call throughout). Toxinotype F is the reported typing of
+  the source studies, an independent assignment rather than a gene call, and is given
+  for comparison.
+  Denominators are the 218 genomes used for gene detection; the 8 CheckM2 failures
+  (7 animal, 1 food) carry none of these genes, so including them changes no numerator.</p>
+  <h3>5.3 &nbsp;Resistance genes by source</h3>
+  <p>All 15 resistance genes detected across the 218 genomes. The poster has
+  room for 10; the 5 omitted from it are <em class="g">lnu(D)</em>, <em class="g">mef(A)</em>, <em class="g">aadE</em>, <em class="g">erm(A)</em>, <em class="g">erm(B)</em>, each
+  found in one or two animal-source genomes and in no bloodstream isolate.</p>
+  <table class="data">
+    <thead><tr><th>Gene</th><th>Blood (25)</th><th>Human (29)</th><th>Animal (141)</th><th>Food (17)</th><th>Env. (6)</th></tr></thead>
+    <tbody><tr><td><em class="g">tetA(P)</em></td><td>56% <span class="note">14</span></td><td>66% <span class="note">19</span></td><td>65% <span class="note">92</span></td><td>41% <span class="note">7</span></td><td>83% <span class="note">5</span></td></tr><tr><td><em class="g">tetB(P)</em></td><td>48% <span class="note">12</span></td><td>28% <span class="note">8</span></td><td>37% <span class="note">52</span></td><td>0% <span class="note">0</span></td><td>83% <span class="note">5</span></td></tr><tr><td><em class="g">ant(6)-Ib</em></td><td>8% <span class="note">2</span></td><td>0% <span class="note">0</span></td><td>5% <span class="note">7</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">erm(Q)</em></td><td>12% <span class="note">3</span></td><td>3% <span class="note">1</span></td><td>1% <span class="note">2</span></td><td>0% <span class="note">0</span></td><td>50% <span class="note">3</span></td></tr><tr><td><em class="g">tet(44)</em></td><td>8% <span class="note">2</span></td><td>0% <span class="note">0</span></td><td>5% <span class="note">7</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">lnu(P)</em></td><td>8% <span class="note">2</span></td><td>3% <span class="note">1</span></td><td>4% <span class="note">5</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">aph(2&#x27;&#x27;)-Ii</em></td><td>8% <span class="note">2</span></td><td>0% <span class="note">0</span></td><td>4% <span class="note">5</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">lnu(D)</em><span class="note"> &mdash; not on poster</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>1% <span class="note">2</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">mef(A)</em><span class="note"> &mdash; not on poster</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>1% <span class="note">2</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">aadE</em><span class="note"> &mdash; not on poster</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>1% <span class="note">1</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">erm(A)</em><span class="note"> &mdash; not on poster</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>1% <span class="note">1</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">erm(B)</em><span class="note"> &mdash; not on poster</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>1% <span class="note">1</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">fexA</em></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>1% <span class="note">1</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">optrA</em></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>1% <span class="note">1</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr><td><em class="g">tet(M)</em></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>1% <span class="note">1</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr></tbody>
+  </table>
+  <p class="fine">ABRicate against NCBI AMRFinderPlus, one uniform run over all 218
+  genomes, collapsed to presence/absence per genome (a gene may hit a genome more than
+  once). <em class="g">optrA</em> and <em class="g">fexA</em> co-occur in a single animal genome
+  (<span class="mono">2C45</span>, chicken caecum, China 2018, which also carries
+  <em class="g">erm(A)</em>); <em class="g">tet(M)</em> is in one other
+  (<span class="mono">CP-41</span>, peacock, China 1984). Both lie in phylogroup III,
+  the phylogroup that contains every bloodstream isolate of this study. Tetracycline
+  efflux genes are widespread across every source.</p>
+  <h3>5.4 &nbsp;Toxinotype by source</h3>
+  <table class="data">
+    <thead><tr><th>Toxinotype</th><th>Blood</th><th>Human</th><th>Animal</th><th>Food</th><th>Env.</th></tr></thead>
+    <tbody><tr class=""><td>A</td><td>96% <span class="note">24</span></td><td>59% <span class="note">17</span></td><td>43% <span class="note">60</span></td><td>6% <span class="note">1</span></td><td>100% <span class="note">6</span></td></tr><tr class=""><td>B</td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>2% <span class="note">3</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr class=""><td>C</td><td>0% <span class="note">0</span></td><td>3% <span class="note">1</span></td><td>10% <span class="note">14</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr class=""><td>D</td><td>0% <span class="note">0</span></td><td>3% <span class="note">1</span></td><td>4% <span class="note">6</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr class=""><td>E</td><td>0% <span class="note">0</span></td><td>7% <span class="note">2</span></td><td>1% <span class="note">2</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr class=""><td>F</td><td>4% <span class="note">1</span></td><td>28% <span class="note">8</span></td><td>24% <span class="note">34</span></td><td>94% <span class="note">16</span></td><td>0% <span class="note">0</span></td></tr><tr class=""><td>G</td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td><td>16% <span class="note">22</span></td><td>0% <span class="note">0</span></td><td>0% <span class="note">0</span></td></tr><tr class="tot"><td>Total</td><td><span class="note">25</span></td><td><span class="note">29</span></td><td><span class="note">141</span></td><td><span class="note">17</span></td><td><span class="note">6</span></td></tr></tbody>
+  </table>
+  <p class="fine">Toxinotypes follow the scheme of Rood et al.<sup>6</sup>; those of
+  the comparison genomes are as reported by Abdel-Glil et al.<sup>1</sup> Every genome
+  carries an assignment, so the columns sum to the group sizes. These are reported
+  typings, not gene calls; see 5.2 for the <em class="g">cpe</em> detections, which give a slightly
+  different count.</p></section>
+<section id="isolation">
+  <h2>6 &nbsp;Isolation source of the comparison genomes, as recorded</h2>
+  <p>Every source string exactly as recorded by the reference studies, for all
+  193 comparison genomes. The poster collapses these into five groups; the
+  original strings are given here because several carry anatomical or clinical detail
+  that the grouping discards.</p>
+  <table class="data src">
+    <thead><tr><th>Group</th><th>Source as recorded</th><th><i>n</i></th></tr></thead>
+    <tbody><tr><td>Human</td><td>Human (stool)</td><td>22</td></tr><tr><td></td><td>Human</td><td>4</td></tr><tr><td></td><td>Human (gut)</td><td>2</td></tr><tr><td></td><td>Human (vagina)</td><td>1</td></tr><tr><td>Animal</td><td>Bird</td><td>44</td></tr><tr><td></td><td>Dog</td><td>16</td></tr><tr><td></td><td>Horse</td><td>16</td></tr><tr><td></td><td>Sheep</td><td>14</td></tr><tr><td></td><td>Pig</td><td>13</td></tr><tr><td></td><td>Cattle</td><td>5</td></tr><tr><td></td><td>Rabbit</td><td>5</td></tr><tr><td></td><td>Bird (chicken intestine)</td><td>3</td></tr><tr><td></td><td>Bird (caecum)</td><td>2</td></tr><tr><td></td><td>Camel</td><td>2</td></tr><tr><td></td><td>Deer</td><td>2</td></tr><tr><td></td><td>Llama (ileum)</td><td>2</td></tr><tr><td></td><td>Llama (jejunum)</td><td>2</td></tr><tr><td></td><td>Mink</td><td>2</td></tr><tr><td></td><td>Bird (chicken)</td><td>1</td></tr><tr><td></td><td>Bird (pigeon)</td><td>1</td></tr><tr><td></td><td>Bird (turkey intestine)</td><td>1</td></tr><tr><td></td><td>Cattle (calf intestinal content)</td><td>1</td></tr><tr><td></td><td>Mouse (gut)</td><td>1</td></tr><tr><td></td><td>Mule</td><td>1</td></tr><tr><td></td><td>Mummified animal (Intestine of a frozen mummy - Bison priscus)</td><td>1</td></tr><tr><td></td><td>Mummified animal (remains of an ancient &quot;Tumat&quot; puppy - Canis lupus familiaris)</td><td>1</td></tr><tr><td></td><td>Peacock</td><td>1</td></tr><tr><td></td><td>Pig (feces)</td><td>1</td></tr><tr><td></td><td>Pig (gut)</td><td>1</td></tr><tr><td></td><td>Pig (intestine)</td><td>1</td></tr><tr><td></td><td>Sheep (lamb intestine)</td><td>1</td></tr><tr><td>Food</td><td>Restaurant</td><td>7</td></tr><tr><td></td><td>Food (salted beef)</td><td>2</td></tr><tr><td></td><td>Food (beef)</td><td>1</td></tr><tr><td></td><td>Food (braised heart)</td><td>1</td></tr><tr><td></td><td>Food (meat rissole)</td><td>1</td></tr><tr><td></td><td>Food (minced beef)</td><td>1</td></tr><tr><td></td><td>Food (rissoles)</td><td>1</td></tr><tr><td></td><td>Food (roast meat)</td><td>1</td></tr><tr><td></td><td>Food (steamed Lamb)</td><td>1</td></tr><tr><td></td><td>Food (stewed steak)</td><td>1</td></tr><tr><td>Environment</td><td>Environment (river water)</td><td>3</td></tr><tr><td></td><td>Environment (Aquarium water)</td><td>1</td></tr><tr><td></td><td>Environment (landfill leachate sludge)</td><td>1</td></tr><tr><td></td><td>Environment (soil)</td><td>1</td></tr></tbody>
+  </table>
+  <p class="fine">Every genome in the comparison set was matched to the reference study
+  by accession or by strain name (193 of 193 matched). Four human genomes are
+  recorded only as &ldquo;Human&rdquo; with no anatomical site; three of these carry a
+  recorded enteric disease (food poisoning, sporadic diarrhoea, enteritis necroticans
+  / Darmbrand). The one gall-bladder isolate of that collection, NCTC 2544
+  (ERR1456745), exists only as raw reads with no public assembly and could not be
+  included. The bloodstream group is 25 genomes: 24 from this study and one public
+  genome (2023/00056), which are not part of this table.</p>
+</section>
+<section id="set">
+  <h2>7 &nbsp;Analysis set</h2>
+  <table class="data num">
+    <thead><tr><th>Step</th><th>Genomes</th></tr></thead>
+    <tbody><tr class=""><td>Public genomes compiled</td><td>204</td></tr><tr class="neg"><td>&minus; unassignable isolation source (cannot be excluded as bloodstream)</td><td>&minus;8</td></tr><tr class="neg"><td>&minus; redundant (MD5 of sequence content, not name)</td><td>&minus;2</td></tr><tr class="sub"><td>Public genomes analysed</td><td>194</td></tr><tr class=""><td>+ bloodstream isolates, this study</td><td>+24</td></tr><tr class="sub"><td>Gene detection and statistics</td><td>218</td></tr><tr class="neg"><td>&minus; CheckM2 fail (completeness &lt; 95% or contamination &gt; 5%; all animal or food)</td><td>&minus;8</td></tr><tr class="sub"><td>Pan-genome and phylogeny</td><td>210</td></tr></tbody>
+  </table>
+</section>
+<section id="software">
+  <h2>8 &nbsp;Software and data</h2>
+  <table class="data">
+    <thead><tr><th>Step</th><th>Tool</th></tr></thead>
+    <tbody><tr><td>Assembly</td><td>shovill (SPAdes), <span class="mono">--depth 150 --minlen 200</span></td></tr><tr><td>Quality</td><td>CheckM2</td></tr><tr><td>Annotation</td><td>Prokka &mdash; one version, identical settings, all 218 genomes</td></tr><tr><td>Pan-genome</td><td>Roary <span class="mono">-e --mafft</span>; default <span class="mono">-i 95</span>, paralogues split</td></tr><tr><td>Phylogeny</td><td>snp-sites &rarr; IQ-TREE 2, GTR+F+I+R7, UFBoot 1000 + SH-aLRT 1000, constant sites supplied</td></tr><tr><td>Network</td><td>SplitsTree4 4.19.2, NeighborNet &mdash; 863 splits, fit 99.95%</td></tr><tr><td>Gene detection</td><td>ABRicate against VFDB and NCBI AMRFinderPlus, one uniform run over all 218</td></tr><tr><td><em class="g">netE</em>, <em class="g">netF</em>, <em class="g">tpeL</em></td><td>Not represented in VFDB &rarr; Bakta v1.12.0, database v6.0 (full), likewise all 218</td></tr><tr><td>Statistics</td><td>Fisher exact test, Benjamini&ndash;Hochberg correction across the 18 genes detected; <i>q</i> &lt; 0.05</td></tr></tbody>
+  </table>
+  <p class="fine">Seven of the 218 genomes were annotated with Bakta v1.11.4 against
+  the same reference database; annotation output was verified identical to v1.12.0
+  across 14,427 CDS (coordinates, protein sequences, gene symbols, products and
+  cross-references all matched exactly).</p>
+  <p class="fine">The single public bloodstream genome is strain 2023/00056
+  (GCA_963424335.1, BioProject PRJEB65712, BioSample SAMEA114318975), a
+  binary-enterotoxin-producing isolate from a fatal case of pneumonia and septic shock
+  reported by Ben Sa&iuml;d et al.<sup>3</sup> It falls within phylogroup II, not
+  phylogroup III.</p>
+  <p class="fine">The tables in this handout are generated from the frozen analysis by
+  <span class="mono">scripts/make_supplement_tables.py</span> and are available as
+  tab-separated files alongside this page, under
+  <span class="mono">data/</span>.</p>
+</section>
+<section id="refs">
+  <h2>References</h2>
+  <ol class="refs"><li>Abdel-Glil MY et al. <i>Sci Rep</i> 2021;11:6756.</li><li>Abdel-Glil MY et al. <i>Microbiol Spectr</i> 2021;9:e00533-21.</li><li>Ben Sa&iuml;d L et al. <i>Microorganisms</i> 2024;12:1095.</li><li>Okazaki A et al. <i>Int J Infect Dis</i> 2025;151:107358.</li><li>Kiu R et al. <i>Nat Microbiol</i> 2023;8:1160&ndash;75.</li><li>Rood JI et al. <i>Anaerobe</i> 2018;53:5&ndash;10.</li></ol>
+  <p class="fine"><strong>Disclosures.</strong> S.H. has received honoraria from Denka,
+  Eiken Chemical, KYORIN Pharmaceutical, Meiji Seika Pharma, MSD, Pfizer, Shionogi and
+  Ushio. All other authors report nothing to disclose.</p>
+  <p class="fine"><strong>Contact.</strong> Aiko Okazaki, MD, PhD &middot; Project
+  Assistant Professor, UTOPIA Center, The University of Tokyo &middot;
+  <a href="mailto:okazaki-aiko321@g.ecc.u-tokyo.ac.jp">okazaki-aiko321@g.ecc.u-tokyo.ac.jp</a></p>
+  <p class="fine"><strong>Affiliations.</strong>
+  1 UTOPIA, The University of Tokyo &middot;
+  2 The University of Tokyo Hospital &middot;
+  3 Juntendo University &middot;
+  4 The University of Tokyo &middot;
+  5 Toho University School of Medicine &middot;
+  6 Institute of Science Tokyo</p>
+</section>
+</div>
+</body>
+</html>

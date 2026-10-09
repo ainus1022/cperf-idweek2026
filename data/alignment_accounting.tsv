@@ -1,0 +1,6 @@
+component	sites	note
+roary_core_alignment	1066463	core_gene_alignment.aln (210 genomes)
+snp_sites	56596	snp-sites output; supplied to IQ-TREE
+constant_sites_supplied	964325	-fconst 390442,95208,180754,297921 (A,C,G,T)
+modelled_total	1020921	as reported by IQ-TREE
+gap_or_ambiguous	45542	not counted in -fconst
