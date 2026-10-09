@@ -1,0 +1,23 @@
+# Nothing participant-level belongs in this repository.
+# The bloodstream isolates come from patients at a single hospital; their
+# collection dates, infection sites and outcomes stay in the private analysis
+# repository and on encrypted volumes only.
+metadata/samples.tsv
+metadata/hemolysis.tsv
+data/clinical/
+private/
+*.xlsx
+*.xls
+*.dta
+
+# Raw reads, assemblies and databases are not distributed here.
+*.fastq.gz
+*.fasta
+*.fna
+*.bam
+*.sam
+dbs/
+
+__pycache__/
+*.pyc
+.DS_Store
